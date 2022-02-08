@@ -57,11 +57,19 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define USART_BAUDRATE 115200
+#define RTC_PREDIV_A ((1<<(15-RTC_N_PREDIV_S))-1)
+#define RTC_N_PREDIV_S 10
+#define RTC_PREDIV_S ((1<<RTC_N_PREDIV_S)-1)
 #define LED_Pin GPIO_PIN_5
 #define LED_GPIO_Port GPIOB
 #define Button_Pin GPIO_PIN_13
 #define Button_GPIO_Port GPIOB
 #define Button_EXTI_IRQn EXTI15_10_IRQn
+#define USARTx_RX_Pin GPIO_PIN_3
+#define USARTx_RX_GPIO_Port GPIOA
+#define USARTx_TX_Pin GPIO_PIN_2
+#define USARTx_TX_GPIO_Port GPIOA
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
