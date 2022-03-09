@@ -75,8 +75,8 @@ all: main-build
 main-build: LoRa_E5_GPIO.elf secondary-outputs
 
 # Tool invocations
-LoRa_E5_GPIO.elf: $(OBJS) $(USER_OBJS) D:\Workspace\LoRA_Workspace\LoRa_E5_Mini\LoRa_E5_GPIO\STM32WLE5JCIX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "LoRa_E5_GPIO.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\Workspace\LoRA_Workspace\LoRa_E5_Mini\LoRa_E5_GPIO\STM32WLE5JCIX_FLASH.ld" --specs=nosys.specs -Wl,-Map="LoRa_E5_GPIO.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+LoRa_E5_GPIO.elf: $(OBJS) $(USER_OBJS) F:\Workspace\LoRaWAN\LoRa_E5_GPIO\STM32WLE5JCIX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "LoRa_E5_GPIO.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"F:\Workspace\LoRaWAN\LoRa_E5_GPIO\STM32WLE5JCIX_FLASH.ld" --specs=nosys.specs -Wl,-Map="LoRa_E5_GPIO.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

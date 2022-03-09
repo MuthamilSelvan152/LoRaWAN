@@ -161,6 +161,22 @@ static TxEventType_t EventType = TX_ON_TIMER;
 static UTIL_TIMER_Object_t TxTimer;
 
 /* USER CODE BEGIN PV */
+
+/**
+  * @brief Specifies the state of the application LED
+  */
+static uint8_t AppLedStateOn = RESET;
+
+/**
+  * @brief User application buffer
+  */
+static uint8_t AppDataBuffer[LORAWAN_APP_DATA_BUFFER_MAX_SIZE];
+
+/**
+  * @brief User application data structure
+  */
+static LmHandlerAppData_t AppData = { 0, 0, AppDataBuffer };
+
 /* USER CODE END PV */
 
 /* Exported functions ---------------------------------------------------------*/
@@ -219,6 +235,63 @@ void LoRaWAN_Init(void)
 static void OnRxData(LmHandlerAppData_t *appData, LmHandlerRxParams_t *params)
 {
   /* USER CODE BEGIN OnRxData_1 */
+
+	if ((appData != NULL) && (params != NULL))
+	{
+		static const char *slotStrings[] = { "1", "2", "C", "C Multicast", "B Ping-Slot", "B Multicast Ping-Slot" };
+
+		APP_LOG(TS_OFF, VLEVEL_M, "\r\n###### ========== MCPS-Indication ==========\r\n");
+		APP_LOG(TS_OFF, VLEVEL_H, "###### D/L FRAME:%04d | SLOT:%s | PORT:%d | DR:%d | RSSI:%d | SNR:%d\r\n",
+				params->DownlinkCounter, slotStrings[params->RxSlot], appData->Port, params->Datarate, params->Rssi, params->Snr);
+		switch (appData->Port)
+		{
+		  case LORAWAN_SWITCH_CLASS_PORT:
+			/*this port switches the class*/
+			if (appData->BufferSize == 1)
+			{
+			  switch (appData->Buffer[0])
+			  {
+				case 0:
+				{
+				  LmHandlerRequestClass(CLASS_A);
+				  break;
+				}
+				case 1:
+				{
+				  LmHandlerRequestClass(CLASS_B);
+				  break;
+				}
+				case 2:
+				{
+				  LmHandlerRequestClass(CLASS_C);
+				  break;
+				}
+				default:
+				  break;
+			  }
+			}
+			break;
+		  case LORAWAN_USER_APP_PORT:
+			if (appData->BufferSize == 1)
+			{
+			  AppLedStateOn = appData->Buffer[0] & 0x01;
+			  if (AppLedStateOn == RESET)
+			  {
+				APP_LOG(TS_OFF, VLEVEL_H,   "LED OFF\r\n");
+			  }
+			  else
+			  {
+				APP_LOG(TS_OFF, VLEVEL_H, "LED ON\r\n");
+			  }
+			}
+			break;
+
+		  default:
+
+			break;
+
+		}
+	}
   /* USER CODE END OnRxData_1 */
 }
 
@@ -226,6 +299,24 @@ static void SendTxData(void)
 {
   /* USER CODE BEGIN SendTxData_1 */
 
+	UTIL_TIMER_Time_t nextTxIn = 0;
+
+	uint32_t i = 0;
+
+	AppData.Port = LORAWAN_USER_APP_PORT;
+
+	AppData.Buffer[i++] = AppLedStateOn;
+
+	AppData.BufferSize = i;
+
+	if (LORAMAC_HANDLER_SUCCESS == LmHandlerSend(&AppData, LORAWAN_DEFAULT_CONFIRMED_MSG_STATE, &nextTxIn, false))
+	{
+	APP_LOG(TS_ON, VLEVEL_L, "SEND REQUEST\r\n");
+	}
+	else if (nextTxIn > 0)
+	{
+	APP_LOG(TS_ON, VLEVEL_L, "Next Tx in  : ~%d second(s)\r\n", (nextTxIn / 1000));
+	}
   /* USER CODE END SendTxData_1 */
 }
 

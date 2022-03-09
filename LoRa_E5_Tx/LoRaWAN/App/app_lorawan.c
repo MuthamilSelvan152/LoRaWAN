@@ -82,6 +82,7 @@ void MX_LoRaWAN_Process(void)
 
   /* USER CODE END MX_LoRaWAN_Process_1 */
   UTIL_SEQ_Run(UTIL_SEQ_DEFAULT);
+	//SendTxData();
   /* USER CODE BEGIN MX_LoRaWAN_Process_2 */
 
   /* USER CODE END MX_LoRaWAN_Process_2 */

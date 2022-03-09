@@ -22,13 +22,13 @@ LmHandler.c:1204:13:LmHandlerPackageIsInitialized	16	static
 LmHandler.c:1216:13:LmHandlerPackagesNotify	24	static
 LmHandler.c:1259:13:LmHandlerPackagesProcess	16	static
 LmHandler.c:1272:24:LmHandlerGetDevEUI	56	static
-LmHandler.c:1289:24:LmHandlerSetDevEUI	56	static
+LmHandler.c:1289:24:LmHandlerSetDevEUI	16	static
 LmHandler.c:1315:24:LmHandlerGetAppEUI	56	static
 LmHandler.c:1333:24:LmHandlerSetAppEUI	56	static
 LmHandler.c:1355:24:LmHandlerGetNetworkID	56	static
 LmHandler.c:1373:24:LmHandlerSetNetworkID	56	static
 LmHandler.c:1395:24:LmHandlerGetDevAddr	56	static
-LmHandler.c:1413:24:LmHandlerSetDevAddr	56	static
+LmHandler.c:1413:24:LmHandlerSetDevAddr	16	static
 LmHandler.c:1439:24:LmHandlerSetActiveRegion	16	static
 LmHandler.c:1454:24:LmHandlerGetAdrEnable	16	static
 LmHandler.c:1465:24:LmHandlerSetAdrEnable	56	static

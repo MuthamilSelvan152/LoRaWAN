@@ -97,10 +97,10 @@ void SystemApp_Init(void)
   UTIL_TIMER_Init();
 
   /* Debug config : disable serial wires and DbgMcu pins settings */
-  DBG_Disable();
+  //DBG_Disable();
 
   /* Initializes the SW probes pins and the monitor RF pins via Alternate Function */
-  DBG_ProbesInit();
+  //DBG_ProbesInit();
 
   /*Initialize the terminal */
   UTIL_ADV_TRACE_Init();

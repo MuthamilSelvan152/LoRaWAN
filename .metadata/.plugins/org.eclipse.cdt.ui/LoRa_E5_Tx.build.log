@@ -1,0 +1,10 @@
+23:23:07 **** Incremental Build of configuration Debug for project LoRa_E5_Tx ****
+make -j4 all 
+arm-none-eabi-size   LoRa_E5_Tx.elf 
+   text	   data	    bss	    dec	    hex	filename
+ 105932	    268	   7164	 113364	  1bad4	LoRa_E5_Tx.elf
+Finished building: default.size.stdout
+ 
+
+23:23:08 Build Finished. 0 errors, 0 warnings. (took 679ms)
+
